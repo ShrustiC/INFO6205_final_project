@@ -1,3 +1,5 @@
+package edu.neu.coe.info6205.sort.counting;
+
 import edu.neu.coe.info6205.sort.elementary.InsertionSortMSD;
 
 /**
@@ -6,7 +8,7 @@ import edu.neu.coe.info6205.sort.elementary.InsertionSortMSD;
 public class MSDStringSort {
 
     /**
-     * Sort an array of Strings using MSDStringSort.
+     * Sort an array of Strings using edu.neu.coe.info6205.sort.counting.MSDStringSort.
      *
      * @param a the array to be sorted.
      */

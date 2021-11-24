@@ -1,3 +1,5 @@
+package edu.neu.coe.info6205.sort.linearithmic;
+
 import edu.neu.coe.info6205.sort.Helper;
 import edu.neu.coe.info6205.sort.linearithmic.Partition;
 import edu.neu.coe.info6205.sort.linearithmic.QuickSort;
