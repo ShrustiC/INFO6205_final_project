@@ -1,5 +1,6 @@
 import java.text.Collator;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class playground {
@@ -23,6 +24,10 @@ public class playground {
         System.out.println("\nAfter sort: ");
         System.out.println("Words: " + Arrays.toString(wordsArray));
         System.out.println("CN Unicode: " + Utils.cnToUnicode(wordsArray));
+
+        List<String> list = Utils.readFromFile("shuffledChinese.txt");
+        list.stream().forEach(s -> System.out.println(s));
+
     }
 
 }
