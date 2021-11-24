@@ -1,6 +1,18 @@
-import java.nio.charset.StandardCharsets;
+import com.ibm.icu.text.Transliterator;
 
 public final class Utils {
+
+    public static String wordToPinyin(String words, Boolean withAccent){
+        Transliterator chineseToLatinTrans;
+
+        if (withAccent){
+            chineseToLatinTrans = Transliterator.getInstance("Han-Latin");
+        }else {
+            chineseToLatinTrans = Transliterator.getInstance("Han-Latin; nfd; [:nonspacing mark:] remove; nfc");
+        }
+
+        return chineseToLatinTrans.transliterate(words);
+    }
 
     public static String pinyinToUnicode(String pinyin){
         char pinyinArray[] = pinyin.toCharArray();
