@@ -1,4 +1,5 @@
 import com.ibm.icu.text.Transliterator;
+
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -6,25 +7,25 @@ import java.util.List;
 
 public final class Utils {
 
-    public static String wordToPinyin(String words, Boolean withAccent){
+    public static String wordToPinyin(String words, Boolean withAccent) {
         Transliterator chineseToLatinTrans;
 
-        if (withAccent){
+        if (withAccent) {
             chineseToLatinTrans = Transliterator.getInstance("Han-Latin");
-        }else {
+        } else {
             chineseToLatinTrans = Transliterator.getInstance("Han-Latin; nfd; [:nonspacing mark:] remove; nfc");
         }
 
         return chineseToLatinTrans.transliterate(words);
     }
 
-    public static String pinyinToUnicode(String pinyin){
+    public static String pinyinToUnicode(String pinyin) {
         char pinyinArray[] = pinyin.toCharArray();
         String unicode = "";
 
         //UTF16
-        for (int i=0;i<pinyinArray.length;i++){
-            unicode += ("\\u" + Integer.toHexString( pinyinArray[i] | 0x10000).substring(1));
+        for (int i = 0; i < pinyinArray.length; i++) {
+            unicode += ("\\u" + Integer.toHexString(pinyinArray[i] | 0x10000).substring(1));
         }
 
         return unicode;

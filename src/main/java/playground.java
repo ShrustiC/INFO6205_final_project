@@ -5,7 +5,7 @@ import java.util.Locale;
 
 public class playground {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         String words = "台北";
 
         String pinyin = Utils.wordToPinyin(words, true);
