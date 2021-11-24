@@ -1,4 +1,8 @@
 import com.ibm.icu.text.Transliterator;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Utils {
 
@@ -45,5 +49,23 @@ public final class Utils {
         }
 
         return unicode;
+    }
+
+    public static List<String> readFromFile(String fileName) {
+        List<String> list = new ArrayList<>();
+        try (
+                FileReader fReader = new FileReader(fileName);
+                BufferedReader bReader = new BufferedReader(fReader)
+        ) {
+            while (true) {
+                String line = bReader.readLine();
+                if (line != null) list.add(line);
+                else break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
