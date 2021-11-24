@@ -13,4 +13,10 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <dependency>
+        <groupId>com.ibm.icu</groupId>
+        <artifactId>icu4j</artifactId>
+        <version>70.1</version>
+    </dependency>
+
 </project>
