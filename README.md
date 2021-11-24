@@ -17,3 +17,4 @@ curl https://repo1.maven.org/maven2/org/ini4j/ini4j/0.5.4/ini4j-0.5.4.jar --outp
 # References:
 
 * [icu4j Alphabetic Index](https://icu.unicode.org/design/alphabetic-index)
+* [install and download jUnit](https://stackoverflow.com/questions/19330832/setting-up-junit-with-intellij-idea)
