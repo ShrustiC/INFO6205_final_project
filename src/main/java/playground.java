@@ -62,7 +62,9 @@ public class playground {
         System.out.println("CN Unicode: " + Utils.cnToUnicode(wordsArray));
 
         List<String> list = Utils.readFromFile("shuffledChinese.txt");
-        list.stream().forEach(s -> System.out.println(s));
+        String[] array = list.stream().toArray(String[]::new);
+        huskySort.sort(array);
+        Arrays.asList(array).stream().forEach(s -> System.out.println(s));
 
     }
 }
