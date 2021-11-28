@@ -1,7 +1,6 @@
 import com.ibm.icu.text.Transliterator;
 
-import java.io.FileReader;
-import java.io.BufferedReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +33,7 @@ public final class Utils {
 
     public static String[] wordToPinyin(String[] words) {
         return Arrays.stream(words).map(word -> {
-            return wordToPinyin(word, true);
+            return wordToPinyin(word, false);
         }).toArray(String[]::new);
     }
 
@@ -75,5 +74,29 @@ public final class Utils {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static void writeToFile(String[] data, String fileName) {
+        try {
+            File file = new File(fileName);
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File: " + file.getName() + " already exists.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter(fileName);
+            for (String s: data) {
+                fileWriter.write(s + System.getProperty( "line.separator" ));
+            }
+            fileWriter.close();
+            System.out.println("Successfully wrote to the file: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
