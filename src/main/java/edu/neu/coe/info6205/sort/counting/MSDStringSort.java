@@ -42,7 +42,7 @@ public class MSDStringSort {
             // Recursively sort for each character value.
             // TO BE IMPLEMENTED
             for (int r = 0; r < radix; r++)
-                sort(a, lo + count[r], lo + count[r+1] - 1, d+1);
+                sort(a, lo + count[r], lo + count[r+1], d+1);
         }
     }
 
