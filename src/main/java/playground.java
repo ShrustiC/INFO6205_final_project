@@ -31,7 +31,7 @@ public class playground {
         // 水 shuǐ   \u0073\u0068\u0075\u01d0
         // 族 zú     \u007a\u00fa
         // 館 guǎn   \u0067\u0075\u01ce\u006e
-        String[] originalString = {"台", "南", "美", "食", "最", "棒", "了", "好", "想", "逛", "水", "族", "館"};
+        String[] originalString = {"樊辉辉", "苏会敏", "高民政", "曹玉德", "袁继鹏", "舒冬梅", "杨腊香", "许凤山", "王广风", "黄锡鸿", "罗庆富", "顾芳芳", "苑彬", "郭健华", "郭建俊"};
         String[] originalStringPinyin = Utils.wordToPinyin(originalString.clone());
 
         // MSD sort
