@@ -11,6 +11,19 @@ import edu.neu.coe.info6205.sort.huskySort.utils.HuskyCoderFactory;
 public class playground {
 
     public static void main(String[] args) {
+        // 台 tái    \u0074\u00e1\u0069
+        // 南 nán    \u006e\u00e1\u006e
+        // 美 měi    \u006d\u011b\u0069
+        // 食 shí    \u0073\u0068\u00ed
+        // 最 zuì    \u007a\u0075\u00ec
+        // 棒 bàng   \u0062\u00e0\u006e\u0067
+        // 了 le     \u006c\u0065
+        // 好 hǎo    \u0068\u01ce\u006f
+        // 想 xiǎng  \u0078\u0069\u01ce\u006e\u0067
+        // 逛 guàng  \u0067\u0075\u00e0\u006e\u0067
+        // 水 shuǐ   \u0073\u0068\u0075\u01d0
+        // 族 zú     \u007a\u00fa
+        // 館 guǎn   \u0067\u0075\u01ce\u006e
         String[] originalString = {"台", "南", "美", "食", "最", "棒", "了", "好", "想", "逛", "水", "族", "館"};
         String[] MSDString = originalString.clone();
         MSDStringSort.sort(MSDString);
