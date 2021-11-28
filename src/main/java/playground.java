@@ -10,12 +10,14 @@ import edu.neu.coe.info6205.sort.huskySort.utils.HuskyCoderFactory;
 import edu.neu.coe.info6205.sort.linearithmic.QuickSort_DualPivot;
 import edu.neu.coe.info6205.sort.linearithmic.TimSort;
 import edu.neu.coe.info6205.util.Config;
+import org.apache.log4j.BasicConfigurator;
 import org.ini4j.Ini;
 
 
 public class playground {
 
     public static void main(String[] args) {
+        BasicConfigurator.configure();
         // 台 tái    \u0074\u00e1\u0069
         // 南 nán    \u006e\u00e1\u006e
         // 美 měi    \u006d\u011b\u0069
@@ -53,7 +55,7 @@ public class playground {
 
         // Husky sort
         String[] HuskyString = originalStringPinyin.clone();
-        PureHuskySort huskySort = new PureHuskySort(HuskyCoderFactory.asciiCoder, false, false);
+        PureHuskySort huskySort = new PureHuskySort(HuskyCoderFactory.unicodeCoder, false, false);
         huskySort.sort(HuskyString);
         System.out.println("HuskySort String sort result: ");
         for(String i: HuskyString){
@@ -73,8 +75,9 @@ public class playground {
         try {
             String[] DualPivotString = originalStringPinyin.clone();
             Ini ini = new Ini();
-            QuickSort_DualPivot<String> quickSort = new QuickSort_DualPivot<String>(TimSortString.length, new Config(ini));
+            QuickSort_DualPivot<String> quickSort = new QuickSort_DualPivot<String>(DualPivotString.length, new Config(ini));
             DualPivotString = quickSort.sort(DualPivotString, true);
+            System.out.println("Dual Pivot String sort result: ");
             for(String i: DualPivotString){
                 System.out.print(i + " ");
             }
