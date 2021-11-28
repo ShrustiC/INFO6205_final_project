@@ -4,8 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import edu.neu.coe.info6205.sort.counting.MSDStringSort;
+import edu.neu.coe.info6205.sort.counting.LSDStringSort;
 import edu.neu.coe.info6205.sort.huskySort.PureHuskySort;
 import edu.neu.coe.info6205.sort.huskySort.utils.HuskyCoderFactory;
+import edu.neu.coe.info6205.sort.linearithmic.QuickSort_DualPivot;
+import edu.neu.coe.info6205.sort.linearithmic.TimSort;
+import edu.neu.coe.info6205.util.Config;
+import org.ini4j.Ini;
 
 
 public class playground {
@@ -25,39 +30,68 @@ public class playground {
         // 族 zú     \u007a\u00fa
         // 館 guǎn   \u0067\u0075\u01ce\u006e
         String[] originalString = {"台", "南", "美", "食", "最", "棒", "了", "好", "想", "逛", "水", "族", "館"};
-        String[] MSDString = originalString.clone();
+        String[] originalStringPinyin = Utils.wordToPinyin(originalString.clone());
+
+        // MSD sort
+        String[] MSDString = originalStringPinyin.clone();
         MSDStringSort.sort(MSDString);
         System.out.println("MSD String sort result: ");
         for(String i: MSDString){
-            System.out.print(i);
+            System.out.print(i + " ");
         }
         System.out.println("");
 
-        String[] LSDString = originalString.clone();
-        MSDStringSort.sort(LSDString);
+        // LSD sort
+        String[] LSDString = originalStringPinyin.clone();
+        LSDStringSort lsdSort = new LSDStringSort();
+        lsdSort.sort(LSDString);
         System.out.println("LSD String sort result: ");
         for(String i: LSDString){
-            System.out.print(i);
+            System.out.print(i + " ");
         }
         System.out.println("");
 
-        //String[] HuskyString = {"g", "a", "m", "e", "o", "f", "t", "h", "r", "o", "n", "e"};
-        String[] HuskyString = originalString.clone();
+        // Husky sort
+        String[] HuskyString = originalStringPinyin.clone();
         PureHuskySort huskySort = new PureHuskySort(HuskyCoderFactory.asciiCoder, false, false);
         huskySort.sort(HuskyString);
         System.out.println("HuskySort String sort result: ");
         for(String i: HuskyString){
-            System.out.print(i);
+            System.out.print(i + " ");
         }
         System.out.println("");
 
-        String words = String.join("", originalString);
-
+        // TimSort
+        String[] TimSortString = originalStringPinyin.clone();
+        Arrays.sort(TimSortString);
+        System.out.println("TimSort String sort result: ");
+        for(String i: TimSortString){
+            System.out.print(i + " ");
+        }
         System.out.println("");
 
+        try {
+            String[] DualPivotString = originalStringPinyin.clone();
+            Ini ini = new Ini();
+            QuickSort_DualPivot<String> quickSort = new QuickSort_DualPivot<String>(TimSortString.length, new Config(ini));
+            DualPivotString = quickSort.sort(DualPivotString, true);
+            for(String i: DualPivotString){
+                System.out.print(i + " ");
+            }
+            System.out.println("");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
+        String words = String.join("", originalString);
+        System.out.println("");
+
+        // Chinese to Pinyin
         String pinyin = Utils.wordToPinyin(words, true);
         System.out.println("Pinyin: " + pinyin);
 
+        // Pinyin to Unicodes
         String unicode = Utils.pinyinToUnicode(pinyin);
         System.out.println("Unicode of Pinyin: " + unicode);
 
@@ -74,10 +108,10 @@ public class playground {
         System.out.println("Words: " + Arrays.toString(wordsArray));
         System.out.println("CN Unicode: " + Utils.cnToUnicode(wordsArray));
 
-        List<String> list = Utils.readFromFile("shuffledChinese.txt");
-        String[] array = list.stream().toArray(String[]::new);
-        huskySort.sort(array);
-        Arrays.asList(array).stream().forEach(s -> System.out.println(s));
+//        List<String> list = Utils.readFromFile("shuffledChinese.txt");
+//        String[] array = list.stream().toArray(String[]::new);
+//        huskySort.sort(array);
+//        Arrays.asList(array).stream().forEach(s -> System.out.println(s));
 
     }
 }

@@ -3,6 +3,7 @@ import com.ibm.icu.text.Transliterator;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class Utils {
@@ -29,6 +30,12 @@ public final class Utils {
         }
 
         return unicode;
+    }
+
+    public static String[] wordToPinyin(String[] words) {
+        return Arrays.stream(words).map(word -> {
+            return wordToPinyin(word, true);
+        }).toArray(String[]::new);
     }
 
     public static String cnToUnicode(String cn) {
