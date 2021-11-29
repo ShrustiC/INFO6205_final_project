@@ -41,6 +41,8 @@ public class MSDStringSort {
             if (hi - lo >= 0) System.arraycopy(aux, 0, a, lo, hi - lo);
             // Recursively sort for each character value.
             // TO BE IMPLEMENTED
+            for (int r = 0; r < radix; r++)
+                sort(a, lo + count[r], lo + count[r+1] - 1, d+1);
         }
     }
 
@@ -49,7 +51,7 @@ public class MSDStringSort {
         else return -1;
     }
 
-    private static final int radix = 256;
+    private static final int radix = 512;
     private static final int cutoff = 15;
     private static String[] aux;       // auxiliary array for distribution
 }

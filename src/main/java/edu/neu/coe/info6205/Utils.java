@@ -1,12 +1,16 @@
+package edu.neu.coe.info6205;
+
 import com.ibm.icu.text.Transliterator;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class Utils {
 
+    //Method to convert chinese words to pinyin; using the icu4j library
     public static String wordToPinyin(String words, Boolean withAccent) {
         Transliterator chineseToLatinTrans;
 
@@ -19,6 +23,7 @@ public final class Utils {
         return chineseToLatinTrans.transliterate(words);
     }
 
+    //Method to convert to pinyin to the equivalent hexadecimal unicodes
     public static String pinyinToUnicode(String pinyin) {
         char pinyinArray[] = pinyin.toCharArray();
         String unicode = "";
@@ -27,8 +32,13 @@ public final class Utils {
         for (int i = 0; i < pinyinArray.length; i++) {
             unicode += ("\\u" + Integer.toHexString(pinyinArray[i] | 0x10000).substring(1));
         }
-
         return unicode;
+    }
+
+    public static String[] wordToPinyin(String[] words) {
+        return Arrays.stream(words).map(word -> {
+            return wordToPinyin(word, true);
+        }).toArray(String[]::new);
     }
 
     public static String cnToUnicode(String cn) {
