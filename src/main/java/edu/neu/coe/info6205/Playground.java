@@ -37,7 +37,8 @@ public class Playground {
 
         // MSD sort
         String[] MSDString = originalStringPinyin.clone();
-        MSDStringSort.sort(MSDString);
+        MSDStringSort msdSort = new MSDStringSort(helper);
+        msdSort.sort(MSDString);
         System.out.println("MSD String sort result: ");
         for(String i: MSDString){
             System.out.print(i + " ");
