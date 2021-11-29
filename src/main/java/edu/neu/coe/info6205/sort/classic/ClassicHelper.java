@@ -1,4 +1,4 @@
-package edu.neu.coe.info6205.sort.classic;
+package edu.neu.coe.info6205.classic;
 
 import edu.neu.coe.info6205.sort.BaseHelper;
 import edu.neu.coe.info6205.sort.GenericHelper;

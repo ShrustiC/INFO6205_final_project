@@ -1,11 +1,7 @@
 package edu.neu.coe.info6205.sort.linearithmic;
 
 import edu.neu.coe.info6205.sort.Helper;
-import edu.neu.coe.info6205.sort.SortWithHelper;
-import edu.neu.coe.info6205.sort.linearithmic.Partition;
-import edu.neu.coe.info6205.sort.linearithmic.QuickSort;
 import edu.neu.coe.info6205.util.Config;
-import edu.neu.coe.info6205.sort.linearithmic.Partitioner;
 
 import java.util.ArrayList;
 import java.util.List;

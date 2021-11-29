@@ -1,4 +1,4 @@
-package edu.neu.coe.info6205.sort.counting;
+package edu.neu.coe.info6205.counting;
 
 /**
  * <h1>Radix Sort</h1>

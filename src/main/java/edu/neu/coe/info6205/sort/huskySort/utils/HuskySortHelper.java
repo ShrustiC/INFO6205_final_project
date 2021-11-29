@@ -8,8 +8,6 @@ import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static edu.neu.coe.info6205.sort.huskySort.utils.HuskyCoderFactory.*;
-
 /**
  * Various utilities to help with HuskySort.
  */
@@ -22,7 +20,7 @@ public class HuskySortHelper {
      * @return the appropriate HuskySequenceCoder.
      */
     public static HuskySequenceCoder<String> getSequenceCoderByName(String name) {
-        return sequenceCoderMap.getOrDefault(name, unicodeCoder);
+        return sequenceCoderMap.getOrDefault(name, HuskyCoderFactory.unicodeCoder);
     }
 
     /**
@@ -69,10 +67,10 @@ public class HuskySortHelper {
      */
     static {
         sequenceCoderMap = new HashMap<>();
-        addToSequenceCoderMap(asciiCoder);
-        addToSequenceCoderMap(utf8Coder);
-        addToSequenceCoderMap(englishCoder);
-        addToSequenceCoderMap(unicodeCoder);
+        addToSequenceCoderMap(HuskyCoderFactory.asciiCoder);
+        addToSequenceCoderMap(HuskyCoderFactory.utf8Coder);
+        addToSequenceCoderMap(HuskyCoderFactory.englishCoder);
+        addToSequenceCoderMap(HuskyCoderFactory.unicodeCoder);
     }
 
     private static void addToSequenceCoderMap(HuskySequenceCoder<String> asciiCoder) {

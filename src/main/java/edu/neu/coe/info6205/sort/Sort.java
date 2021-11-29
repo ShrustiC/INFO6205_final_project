@@ -3,6 +3,8 @@
  */
 package edu.neu.coe.info6205.sort;
 
+import edu.neu.coe.info6205.sort.GenericSort;
+
 import java.util.Arrays;
 
 public interface Sort<X> extends GenericSort<X> {

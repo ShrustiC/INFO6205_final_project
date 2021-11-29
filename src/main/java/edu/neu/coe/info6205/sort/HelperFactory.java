@@ -1,6 +1,6 @@
 package edu.neu.coe.info6205.sort;
 
-import edu.neu.coe.info6205.sort.classic.ClassicHelper;
+import edu.neu.coe.info6205.classic.ClassicHelper;
 import edu.neu.coe.info6205.util.Config;
 
 import java.util.Random;

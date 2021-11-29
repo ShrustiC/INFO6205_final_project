@@ -1,8 +1,8 @@
 package edu.neu.coe.info6205.sort.counting;
 
+import edu.neu.coe.info6205.sort.elementary.InsertionSortMSD;
 import edu.neu.coe.info6205.sort.Helper;
 import edu.neu.coe.info6205.sort.SortWithHelper;
-import edu.neu.coe.info6205.sort.elementary.InsertionSortMSD;
 
 /**
  * Class to implement Most significant digit string sort (a radix sort).
