@@ -1,21 +1,33 @@
 package edu.neu.coe.info6205.sort.counting;
 
+import edu.neu.coe.info6205.sort.Helper;
+import edu.neu.coe.info6205.sort.SortWithHelper;
 import edu.neu.coe.info6205.sort.elementary.InsertionSortMSD;
 
 /**
  * Class to implement Most significant digit string sort (a radix sort).
  */
-public class MSDStringSort {
+public class MSDStringSort extends SortWithHelper<String> {
+
+    public MSDStringSort(Helper<String> helper) {
+        super(helper);
+    }
 
     /**
      * Sort an array of Strings using edu.neu.coe.info6205.sort.counting.MSDStringSort.
      *
      * @param a the array to be sorted.
      */
-    public static void sort(String[] a) {
+    public void sort(String[] a, int... i) {
         int n = a.length;
         aux = new String[n];
         sort(a, 0, n, 0);
+    }
+
+    public void sort(String[] a, int from, int to) {
+        int n = a.length;
+        aux = new String[n];
+        sort(a, from, to, 0);
     }
 
     /**
@@ -27,7 +39,7 @@ public class MSDStringSort {
      * @param hi the high index (one above the highest actually processed).
      * @param d the number of characters in each String to be skipped.
      */
-    private static void sort(String[] a, int lo, int hi, int d) {
+    private void sort(String[] a, int lo, int hi, int d) {
         if (hi < lo + cutoff) InsertionSortMSD.sort(a, lo, hi, d);
         else {
             int[] count = new int[radix + 2];        // Compute frequency counts.
@@ -46,7 +58,7 @@ public class MSDStringSort {
         }
     }
 
-    private static int charAt(String s, int d) {
+    private int charAt(String s, int d) {
         if (d < s.length()) return s.charAt(d);
         else return -1;
     }

@@ -26,7 +26,7 @@ public class SortBenchmark {
         Todo:
          1. Add Chinese words to Pinyin mapping
          2. Convert sorted Pinyin back to Chinese
-         3. MSD, LSD and Dual-Pivot Quicksort should extends SortWithHelper
+         3. MSD, LSD and Dual-Pivot Quicksort should extends SortWithHelper (done)
      */
 
     public static void main(String[] args) {
@@ -47,21 +47,27 @@ public class SortBenchmark {
         }
 
         // MSD sort
+        System.out.println("MSD Sort");
         String[] MSDString = shuffledChinesePinyin.clone();
+        helper = new BaseHelper<>("Sorting", MSDString.length, config);
+        SortWithHelper<String> msdSort = new MSDStringSort(helper);
         //Benchmark start
-        MSDStringSort.sort(MSDString);
+        msdSort.sort(MSDString);
         //Benchmark end
         //Utils.writeToFile(MSDString, "MSDString_Sorting_Result.txt");
 
         // LSD sort
+        System.out.println("LSD Sort");
         String[] LSDString = shuffledChinesePinyin.clone();
-        LSDStringSort lsdSort = new LSDStringSort();
+        helper = new BaseHelper<>("Sorting", LSDString.length, config);
+        SortWithHelper<String> lsdSort = new LSDStringSort(helper);
         //Benchmark start
         lsdSort.sort(LSDString);
         //Benchmark end
         //Utils.writeToFile(LSDString, "LSDString_Sorting_Result.txt");
 
         // Husky sort
+        System.out.println("Husky Sort");
         String[] HuskyString = shuffledChinesePinyin.clone();
         PureHuskySort huskySort = new PureHuskySort(HuskyCoderFactory.unicodeCoder, false, false);
         //Benchmark start
@@ -70,22 +76,24 @@ public class SortBenchmark {
         //Utils.writeToFile(HuskyString, "HuskySort_Sorting_Result.txt");
 
         // TimSort
+        System.out.println("TimSort");
         String[] TimSortString = shuffledChinesePinyin.clone();
         helper = new BaseHelper<>("Sorting", TimSortString.length, config);
-        SortWithHelper<String> arraySorter = new TimSort<>(helper);
-        benchmark = new Benchmark_Timer<>("TimSort", b -> arraySorter.sort(b));
+        SortWithHelper<String> timSort = new TimSort<>(helper);
+        benchmark = new Benchmark_Timer<>("TimSort", b -> timSort.sort(b));
         //Benchmark start
         Arrays.sort(TimSortString);
         //Benchmark end
         //Utils.writeToFile(TimSortString, "TimSort_Sorting_Result.txt");
 
         // Dual-Pivot Quick Sort
+        System.out.println("Dual-Pivot Quicksort");
         try {
             String[] DualPivotString = shuffledChinesePinyin.clone();
             Ini ini = new Ini();
-            QuickSort_DualPivot<String> quickSort = new QuickSort_DualPivot<String>(DualPivotString.length, new Config(ini));
+            SortWithHelper<String> quickSort = new QuickSort_DualPivot<String>(DualPivotString.length, new Config(ini));
             //Benchmark start
-            DualPivotString = quickSort.sort(DualPivotString, true);
+            quickSort.sort(DualPivotString);
             //Benchmark end
             //Utils.writeToFile(DualPivotString, "DualPivot_Sorting_Result.txt");
         } catch (Exception e) {

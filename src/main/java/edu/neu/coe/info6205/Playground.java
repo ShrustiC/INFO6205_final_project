@@ -3,11 +3,15 @@ package edu.neu.coe.info6205;
 import java.text.Collator;
 import java.util.Arrays;
 import java.util.Locale;
+
+import edu.neu.coe.info6205.sort.BaseHelper;
+import edu.neu.coe.info6205.sort.Helper;
 import edu.neu.coe.info6205.sort.counting.MSDStringSort;
 import edu.neu.coe.info6205.sort.counting.LSDStringSort;
 import edu.neu.coe.info6205.sort.huskySort.PureHuskySort;
 import edu.neu.coe.info6205.sort.huskySort.utils.HuskyCoderFactory;
 import edu.neu.coe.info6205.sort.linearithmic.QuickSort_DualPivot;
+import edu.neu.coe.info6205.util.Benchmark;
 import edu.neu.coe.info6205.util.Config;
 import edu.neu.coe.info6205.util.Utils;
 import org.apache.log4j.BasicConfigurator;
@@ -31,8 +35,7 @@ public class Playground {
         // 水 shuǐ   \u0073\u0068\u0075\u01d0
         // 族 zú     \u007a\u00fa
         // 館 guǎn   \u0067\u0075\u01ce\u006e
-        String[] originalString = {"樊辉辉", "苏会敏", "高民政", "曹玉德", "袁继鹏", "舒冬梅", "杨腊香", "许凤山", "王广风", "黄锡鸿", "罗庆富", "顾芳芳", "苑彬", "郭健华", "郭建俊"};
-        String[] originalStringPinyin = Utils.wordToPinyin(originalString.clone());
+        originalStringPinyin = Utils.wordToPinyin(originalString.clone());
 
         // MSD sort
         String[] MSDString = originalStringPinyin.clone();
@@ -45,7 +48,7 @@ public class Playground {
 
         // LSD sort
         String[] LSDString = originalStringPinyin.clone();
-        LSDStringSort lsdSort = new LSDStringSort();
+        LSDStringSort lsdSort = new LSDStringSort(helper);
         lsdSort.sort(LSDString);
         System.out.println("LSD String sort result: ");
         for(String i: LSDString){
@@ -117,4 +120,10 @@ public class Playground {
 //        Arrays.asList(array).stream().forEach(s -> System.out.println(s));
 
     }
+
+    private static String[] originalString = {"樊辉辉", "苏会敏", "高民政", "曹玉德", "袁继鹏", "舒冬梅", "杨腊香", "许凤山", "王广风", "黄锡鸿", "罗庆富", "顾芳芳", "苑彬", "郭健华", "郭建俊"};
+    private static String[] originalStringPinyin;
+    private static Ini ini = new Ini();
+    private static Config config = new Config(ini);
+    private static Helper<String> helper = new BaseHelper<String>("Sorting", originalString.length, config);
 }

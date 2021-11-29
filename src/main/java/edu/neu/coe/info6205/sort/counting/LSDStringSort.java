@@ -1,8 +1,15 @@
 package edu.neu.coe.info6205.sort.counting;
 
-public class LSDStringSort {
+import edu.neu.coe.info6205.sort.Helper;
+import edu.neu.coe.info6205.sort.SortWithHelper;
+
+public class LSDStringSort extends SortWithHelper<String> {
 
     private final int ASCII_RANGE = 512;
+
+    public LSDStringSort(Helper<String> helper) {
+        super(helper);
+    }
 
     /**
      * findMaxLength method returns maximum length of all available strings in an array
@@ -81,7 +88,7 @@ public class LSDStringSort {
      *
      * @param strArr It contains an array of String on which LSD sort needs to be performed
      */
-    public void sort(String[] strArr) {
+    public void sort(String[] strArr, int... index) {
         sort(strArr, 0, strArr.length - 1);
     }
 }
