@@ -1,13 +1,13 @@
 package edu.neu.coe.info6205.util;
 
-import edu.neu.coe.info6205.InstrumentedHelper;
+import edu.neu.coe.info6205.sort.InstrumentedHelper;
 import org.ini4j.Ini;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static edu.neu.coe.info6205.InstrumentedHelper.HITS;
+import static edu.neu.coe.info6205.sort.InstrumentedHelper.HITS;
 import static org.junit.Assert.*;
 
 public class ConfigTest {

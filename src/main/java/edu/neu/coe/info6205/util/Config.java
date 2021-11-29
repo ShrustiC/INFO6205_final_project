@@ -1,6 +1,6 @@
 package edu.neu.coe.info6205.util;
 
-import edu.neu.coe.info6205.BaseHelper;
+import edu.neu.coe.info6205.sort.BaseHelper;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 

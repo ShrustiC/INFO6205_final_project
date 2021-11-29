@@ -1,17 +1,10 @@
 package edu.neu.coe.info6205;
 
-import edu.neu.coe.info6205.linearithmic.QuickSort_DualPivot;
 import edu.neu.coe.info6205.util.Config;
 import edu.neu.coe.info6205.util.LazyLogger;
-import edu.neu.coe.info6205.util.Utilities;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.function.Supplier;
 
 /**
  * Unit tests which are in fact benchmarks of the various sort methods.
