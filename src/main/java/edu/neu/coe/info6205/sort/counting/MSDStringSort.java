@@ -7,27 +7,16 @@ import edu.neu.coe.info6205.sort.elementary.InsertionSortMSD;
 /**
  * Class to implement Most significant digit string sort (a radix sort).
  */
-public class MSDStringSort extends SortWithHelper<String> {
-
-    public MSDStringSort(Helper<String> helper) {
-        super(helper);
-    }
-
+public class MSDStringSort {
     /**
      * Sort an array of Strings using edu.neu.coe.info6205.sort.counting.MSDStringSort.
      *
      * @param a the array to be sorted.
      */
-    public void sort(String[] a, int... i) {
+    public void sort(String[] a) {
         int n = a.length;
         aux = new String[n];
         sort(a, 0, n, 0);
-    }
-
-    public void sort(String[] a, int from, int to) {
-        int n = a.length;
-        aux = new String[n];
-        sort(a, from, to, 0);
     }
 
     /**

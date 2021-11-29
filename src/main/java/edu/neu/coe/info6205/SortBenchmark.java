@@ -49,8 +49,7 @@ public class SortBenchmark {
         // MSD sort
         System.out.println("MSD Sort");
         String[] MSDString = shuffledChinesePinyin.clone();
-        helper = new BaseHelper<>("Sorting", MSDString.length, config);
-        SortWithHelper<String> msdSort = new MSDStringSort(helper);
+        MSDStringSort msdSort = new MSDStringSort();
         //Benchmark start
         msdSort.sort(MSDString);
         //Benchmark end
@@ -59,8 +58,7 @@ public class SortBenchmark {
         // LSD sort
         System.out.println("LSD Sort");
         String[] LSDString = shuffledChinesePinyin.clone();
-        helper = new BaseHelper<>("Sorting", LSDString.length, config);
-        SortWithHelper<String> lsdSort = new LSDStringSort(helper);
+        LSDStringSort lsdSort = new LSDStringSort();
         //Benchmark start
         lsdSort.sort(LSDString);
         //Benchmark end
@@ -79,10 +77,10 @@ public class SortBenchmark {
         System.out.println("TimSort");
         String[] TimSortString = shuffledChinesePinyin.clone();
         helper = new BaseHelper<>("Sorting", TimSortString.length, config);
-        SortWithHelper<String> timSort = new TimSort<>(helper);
-        benchmark = new Benchmark_Timer<>("TimSort", b -> timSort.sort(b));
+        TimSort<String> timSort = new TimSort<>(helper);
+        benchmark = new Benchmark_Timer<>("TimSort", b -> timSort.sort(b,0, TimSortString.length));
         //Benchmark start
-        Arrays.sort(TimSortString);
+        //timSort.sort(TimSortString, 0, TimSortString.length);
         //Benchmark end
         //Utils.writeToFile(TimSortString, "TimSort_Sorting_Result.txt");
 
@@ -91,9 +89,9 @@ public class SortBenchmark {
         try {
             String[] DualPivotString = shuffledChinesePinyin.clone();
             Ini ini = new Ini();
-            SortWithHelper<String> quickSort = new QuickSort_DualPivot<String>(DualPivotString.length, new Config(ini));
+            QuickSort_DualPivot<String> quickSort = new QuickSort_DualPivot<String>(DualPivotString.length, new Config(ini));
             //Benchmark start
-            quickSort.sort(DualPivotString);
+            quickSort.sort(DualPivotString, 0, DualPivotString.length, 0);
             //Benchmark end
             //Utils.writeToFile(DualPivotString, "DualPivot_Sorting_Result.txt");
         } catch (Exception e) {

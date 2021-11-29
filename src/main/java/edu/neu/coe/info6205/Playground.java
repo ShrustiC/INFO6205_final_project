@@ -6,11 +6,13 @@ import java.util.Locale;
 
 import edu.neu.coe.info6205.sort.BaseHelper;
 import edu.neu.coe.info6205.sort.Helper;
+import edu.neu.coe.info6205.sort.SortWithHelper;
 import edu.neu.coe.info6205.sort.counting.MSDStringSort;
 import edu.neu.coe.info6205.sort.counting.LSDStringSort;
 import edu.neu.coe.info6205.sort.huskySort.PureHuskySort;
 import edu.neu.coe.info6205.sort.huskySort.utils.HuskyCoderFactory;
 import edu.neu.coe.info6205.sort.linearithmic.QuickSort_DualPivot;
+import edu.neu.coe.info6205.sort.linearithmic.TimSort;
 import edu.neu.coe.info6205.util.Benchmark;
 import edu.neu.coe.info6205.util.Config;
 import edu.neu.coe.info6205.util.Utils;
@@ -39,7 +41,7 @@ public class Playground {
 
         // MSD sort
         String[] MSDString = originalStringPinyin.clone();
-        MSDStringSort msdSort = new MSDStringSort(helper);
+        MSDStringSort msdSort = new MSDStringSort();
         msdSort.sort(MSDString);
         System.out.println("MSD String sort result: ");
         for(String i: MSDString){
@@ -49,7 +51,7 @@ public class Playground {
 
         // LSD sort
         String[] LSDString = originalStringPinyin.clone();
-        LSDStringSort lsdSort = new LSDStringSort(helper);
+        LSDStringSort lsdSort = new LSDStringSort();
         lsdSort.sort(LSDString);
         System.out.println("LSD String sort result: ");
         for(String i: LSDString){
@@ -69,7 +71,9 @@ public class Playground {
 
         // TimSort
         String[] TimSortString = originalStringPinyin.clone();
-        Arrays.sort(TimSortString);
+        helper = new BaseHelper<>("Sorting", TimSortString.length, config);
+        TimSort<String> timSort = new TimSort<>(helper);
+        timSort.sort(TimSortString, 0, TimSortString.length);
         System.out.println("TimSort String sort result: ");
         for(String i: TimSortString){
             System.out.print(i + " ");
@@ -80,7 +84,7 @@ public class Playground {
             String[] DualPivotString = originalStringPinyin.clone();
             Ini ini = new Ini();
             QuickSort_DualPivot<String> quickSort = new QuickSort_DualPivot<String>(DualPivotString.length, new Config(ini));
-            DualPivotString = quickSort.sort(DualPivotString, true);
+            quickSort.sort(DualPivotString, 0, DualPivotString.length, 0);
             System.out.println("Dual Pivot String sort result: ");
             for(String i: DualPivotString){
                 System.out.print(i + " ");

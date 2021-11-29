@@ -3,14 +3,8 @@ package edu.neu.coe.info6205.sort.counting;
 import edu.neu.coe.info6205.sort.Helper;
 import edu.neu.coe.info6205.sort.SortWithHelper;
 
-public class LSDStringSort extends SortWithHelper<String> {
-
+public class LSDStringSort {
     private final int ASCII_RANGE = 512;
-
-    public LSDStringSort(Helper<String> helper) {
-        super(helper);
-    }
-
     /**
      * findMaxLength method returns maximum length of all available strings in an array
      *
@@ -51,7 +45,7 @@ public class LSDStringSort extends SortWithHelper<String> {
         int[] count = new int[ASCII_RANGE + 2];
         String[] result = new String[strArr.length];
 
-        for (int i = from; i <= to; i++) {
+        for (int i = from; i < to; i++) {
             int c = charAsciiVal(strArr[i], charPosition);
             count[c + 2]++;
         }
@@ -61,13 +55,13 @@ public class LSDStringSort extends SortWithHelper<String> {
             count[r] += count[r - 1];
 
         // distribute
-        for (int i = from; i <= to; i++) {
+        for (int i = from; i < to; i++) {
             int c = charAsciiVal(strArr[i], charPosition);
             result[count[c + 1]++] = strArr[i];
         }
 
         // copy back
-        if (to + 1 - from >= 0) System.arraycopy(result, 0, strArr, from, to + 1 - from);
+        if (to + 1 - from >= 0) System.arraycopy(result, 0, strArr, from, to - from);
     }
 
     /**
@@ -89,6 +83,6 @@ public class LSDStringSort extends SortWithHelper<String> {
      * @param strArr It contains an array of String on which LSD sort needs to be performed
      */
     public void sort(String[] strArr, int... index) {
-        sort(strArr, 0, strArr.length - 1);
+        sort(strArr, 0, strArr.length);
     }
 }
