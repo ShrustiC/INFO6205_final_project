@@ -18,8 +18,8 @@ import org.apache.log4j.BasicConfigurator;
 import org.ini4j.Ini;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class SortBenchmark {
@@ -29,23 +29,43 @@ public class SortBenchmark {
          2. Convert sorted Pinyin back to Chinese
          3. MSD, LSD and Dual-Pivot Quicksort should extends SortWithHelper (done)
      */
-
-    public static void main(String[] args) {
-        BasicConfigurator.configure();
-        String pinyinFileName = "shuffledChinesePinyin.txt";
-        String[] shuffledChinesePinyin;
+    public static void preProcess() {
         File pinyinFile = new File(pinyinFileName);
-
-        List<String> shuffledChinese = Utils.readFromFile("shuffledChinese.txt");
+        List<String> shuffledChinese = Utils.readFromFile("shuffledChineseTrimmed.txt");
+        String[] tmp;
 
         if (pinyinFile.exists()){
             System.out.println("File exists, reading from file...");
-            shuffledChinesePinyin = Utils.readFromFile(pinyinFile.toString()).stream().toArray(String[]::new);
+            tmp = Utils.readFromFile(pinyinFile.toString()).stream().toArray(String[]::new);
         }else{
             System.out.println("File is not exists, converting and writing to file...");
-            shuffledChinesePinyin = Utils.wordToPinyin(shuffledChinese.stream().toArray(String[]::new));
-            Utils.writeToFile(shuffledChinesePinyin, pinyinFile.toString());
+            tmp = Utils.wordToPinyin(shuffledChinese.stream().toArray(String[]::new));
+            Utils.writeToFile(tmp, pinyinFile.toString());
         }
+        Arrays.stream(tmp).forEach(str -> {
+            String ch = str.split("=")[0];
+            String pinyIn = str.split("=")[1];
+            LinkedList<String> val;
+            if(pinyinMapping.containsKey(pinyIn)) {
+                val = pinyinMapping.get(pinyIn);
+                val.add(ch);
+                Collections.sort(val);
+            } else {
+                val = new LinkedList<>();
+                val.add(ch);
+            }
+            pinyinMapping.put(pinyIn, val);
+        });
+        pinyinMapping.forEach((key, value) -> System.out.println(key + ":" + value));
+        shuffledChinesePinyin = Arrays.stream(tmp)
+                .map(str -> str.split("=")[1])
+                .toArray(String[]::new);
+    }
+
+    public static void main(String[] args) {
+        BasicConfigurator.configure();
+        preProcess();
+        int curr = 0;
 
         // MSD sort
         System.out.println("MSD Sort");
@@ -55,6 +75,14 @@ public class SortBenchmark {
         msdSort.sort(MSDString);
         //Benchmark end
         //Utils.writeToFile(MSDString, "MSDString_Sorting_Result.txt");
+        for(int i = 0; i < MSDString.length; i++) {
+            LinkedList<String> tmp = pinyinMapping.get(MSDString[i]);
+            if(curr == tmp.size()) curr = 0;
+            MSDString[i] = tmp.get(curr);
+            curr++;
+        }
+        System.out.println(Arrays.toString(MSDString));
+
 
         // LSD sort
         System.out.println("LSD Sort");
@@ -64,6 +92,13 @@ public class SortBenchmark {
         lsdSort.sort(LSDString);
         //Benchmark end
         //Utils.writeToFile(LSDString, "LSDString_Sorting_Result.txt");
+        for(int i = 0; i < LSDString.length; i++) {
+            LinkedList<String> tmp = pinyinMapping.get(LSDString[i]);
+            if(curr == tmp.size()) curr = 0;
+            LSDString[i] = tmp.get(curr);
+            curr++;
+        }
+        System.out.println(Arrays.toString(LSDString));
 
         // Husky sort
         System.out.println("Husky Sort");
@@ -73,6 +108,13 @@ public class SortBenchmark {
         huskySort.sort(HuskyString);
         //Benchmark end
         //Utils.writeToFile(HuskyString, "HuskySort_Sorting_Result.txt");
+        for(int i = 0; i < HuskyString.length; i++) {
+            LinkedList<String> tmp = pinyinMapping.get(HuskyString[i]);
+            if(curr == tmp.size()) curr = 0;
+            HuskyString[i] = tmp.get(curr);
+            curr++;
+        }
+        System.out.println(Arrays.toString(HuskyString));
 
         // TimSort
         System.out.println("TimSort");
@@ -80,10 +122,18 @@ public class SortBenchmark {
         helper = new BaseHelper<>("Sorting", TimSortString.length, config);
         TimSort<String> timSort = new TimSort<>(helper);
         benchmark = new Benchmark_Timer<>("TimSort", b -> timSort.sort(b,0, TimSortString.length));
+        benchmark.run(TimSortString, 5);
         //Benchmark start
         //timSort.sort(TimSortString, 0, TimSortString.length);
         //Benchmark end
         //Utils.writeToFile(TimSortString, "TimSort_Sorting_Result.txt");
+        for(int i = 0; i < TimSortString.length; i++) {
+            LinkedList<String> tmp = pinyinMapping.get(TimSortString[i]);
+            if(curr == tmp.size()) curr = 0;
+            TimSortString[i] = tmp.get(curr);
+            curr++;
+        }
+        System.out.println(Arrays.toString(TimSortString));
 
         // Dual-Pivot Quick Sort
         System.out.println("Dual-Pivot Quicksort");
@@ -95,6 +145,13 @@ public class SortBenchmark {
             quickSort.sort(DualPivotString, 0, DualPivotString.length, 0);
             //Benchmark end
             //Utils.writeToFile(DualPivotString, "DualPivot_Sorting_Result.txt");
+            for(int i = 0; i < DualPivotString.length; i++) {
+                LinkedList<String> tmp = pinyinMapping.get(DualPivotString[i]);
+                if(curr == tmp.size()) curr = 0;
+                DualPivotString[i] = tmp.get(curr);
+                curr++;
+            }
+            System.out.println(Arrays.toString(DualPivotString));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -104,4 +161,8 @@ public class SortBenchmark {
     private static Config config = new Config(ini);
     private static Benchmark<String[]> benchmark;
     private static Helper<String> helper;
+    private static String[] shuffledChinesePinyin;
+    private static Map<String, LinkedList<String>> pinyinMapping = new HashMap<>();
+
+    private final static String pinyinFileName = "shuffledChinesePinyin.txt";
 }

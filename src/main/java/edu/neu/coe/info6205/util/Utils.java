@@ -36,7 +36,7 @@ public final class Utils {
 
     public static String[] wordToPinyin(String[] words) {
         return Arrays.stream(words).map(word -> {
-            return wordToPinyin(word, false);
+            return word+ "=" + wordToPinyin(word, false);
         }).toArray(String[]::new);
     }
 
