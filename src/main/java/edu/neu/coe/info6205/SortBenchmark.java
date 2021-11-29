@@ -3,7 +3,6 @@ package edu.neu.coe.info6205;
 
 import edu.neu.coe.info6205.sort.BaseHelper;
 import edu.neu.coe.info6205.sort.Helper;
-import edu.neu.coe.info6205.sort.SortWithHelper;
 import edu.neu.coe.info6205.sort.counting.LSDStringSort;
 import edu.neu.coe.info6205.sort.counting.MSDStringSort;
 import edu.neu.coe.info6205.sort.huskySort.PureHuskySort;
@@ -19,15 +18,14 @@ import org.ini4j.Ini;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
-
 
 public class SortBenchmark {
     /*
         Todo:
-         1. Add Chinese words to Pinyin mapping
-         2. Convert sorted Pinyin back to Chinese
+         1. Add Chinese words to Pinyin mapping (done)
+         2. Convert sorted Pinyin back to Chinese (done)
          3. MSD, LSD and Dual-Pivot Quicksort should extends SortWithHelper (done)
+         4. Unit test with Chinese terms
      */
     public static void preProcess() {
         File pinyinFile = new File(pinyinFileName);
