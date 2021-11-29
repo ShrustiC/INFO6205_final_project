@@ -1,4 +1,4 @@
-package edu.neu.coe.info6205.counting;
+package edu.neu.coe.info6205.sort.counting;
 
 import edu.neu.coe.info6205.sort.BaseHelper;
 import edu.neu.coe.info6205.sort.Helper;
@@ -23,7 +23,8 @@ public class MSDStringSortTest {
 
     @Test
     public void sort() {
-        MSDStringSort.sort(input);
+        MSDStringSort msdStringSort = new MSDStringSort();
+        msdStringSort.sort(input);
         System.out.println(Arrays.toString(input));
         assertArrayEquals(expected, input);
     }
@@ -36,7 +37,8 @@ public class MSDStringSortTest {
         String[] words = getWords("3000-common-words.txt", MSDStringSortTest::lineAsList);
         final String[] xs = helper.random(String.class, r -> words[r.nextInt(words.length)]);
         assertEquals(n, xs.length);
-        MSDStringSort.sort(xs);
+        MSDStringSort msdStringSort = new MSDStringSort();
+        msdStringSort.sort(xs);
         assertEquals("African-American", xs[0]);
         assertEquals("Palestinian", xs[16]);
     }

@@ -1,7 +1,7 @@
-package edu.neu.coe.info6205.counting.LSDStringSortStepDefinition;
+package edu.neu.coe.info6205.sort.counting.LSDStringSortStepDefinition;
 
 
-import edu.neu.coe.info6205.counting.LSDStringSort;
+import edu.neu.coe.info6205.sort.counting.LSDStringSort;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
