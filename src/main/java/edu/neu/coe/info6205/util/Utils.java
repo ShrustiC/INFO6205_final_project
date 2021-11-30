@@ -3,9 +3,7 @@ package edu.neu.coe.info6205.util;
 import com.ibm.icu.text.Transliterator;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public final class Utils {
 
@@ -34,9 +32,33 @@ public final class Utils {
         return unicode;
     }
 
+    public static String pinyinToCustomEncoding(String pinyin) {
+        char pinyinArray[] = pinyin.toCharArray();
+        HashMap<String, String> customEncodingMapping = new HashMap<String, String>(){{
+            put("ā", "0"); put("á", "1"); put("ǎ", "2"); put("à", "3"); put("a", "4");
+            put("b", "5"); put("c", "6"); put("d", "7"); put("ē", "8"); put("é", "9");
+            put("ě", "a"); put("è", "b"); put("e", "c"); put("f", "d"); put("g", "e");
+            put("h", "f"); put("ī", "10"); put("í", "11"); put("ǐ", "12"); put("ì", "13");
+            put("i", "14"); put("j", "15"); put("k", "16"); put("l", "17"); put("m", "18");
+            put("n", "19"); put("ō", "1a"); put("ó", "1b"); put("ǒ", "1c"); put("ò", "1d");
+            put("o", "1e"); put("p", "1f"); put("q", "20"); put("r", "21"); put("s", "22");
+            put("t", "23"); put("ū", "24"); put("ú", "25"); put("ǔ", "26"); put("ù", "27");
+            put("u", "28"); put("v", "29"); put("w", "2a"); put("x", "2b"); put("y", "2c");
+            put("z", "2d");
+
+        }};
+        String encoding = "";
+
+        //UTF16
+        for (int i = 0; i < pinyinArray.length; i++) {
+            encoding += customEncodingMapping.get(String.valueOf(pinyinArray[i]));
+        }
+        return encoding;
+    }
+
     public static String[] wordToPinyin(String[] words) {
         return Arrays.stream(words).map(word -> {
-            return wordToPinyin(word, false);
+            return wordToPinyin(word, true);
         }).toArray(String[]::new);
     }
 
