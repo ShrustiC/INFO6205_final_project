@@ -162,5 +162,5 @@ public class SortBenchmark {
     private static String[] shuffledChinesePinyin;
     private static Map<String, LinkedList<String>> pinyinMapping = new HashMap<>();
 
-    private final static String pinyinFileName = "shuffledChinesePinyin.txt";
+    private final static String pinyinFileName = "shuffledChineseToPinyinMapping.txt";
 }
