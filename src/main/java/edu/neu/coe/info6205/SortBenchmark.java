@@ -28,8 +28,8 @@ public class SortBenchmark {
          4. Unit test with Chinese terms
      */
     public static void preProcess() {
-        File pinyinFile = new File(pinyinFileName);
-        List<String> shuffledChinese = Utils.readFromFile("shuffledChineseTrimmed.txt");
+        File pinyinFile = new File(tonelessPinyinFileName);
+        List<String> shuffledChinese = Utils.readFromFile("shuffledChinese.txt");
         String[] tmp;
 
         if (pinyinFile.exists()){
@@ -72,14 +72,15 @@ public class SortBenchmark {
         //Benchmark start
         msdSort.sort(MSDString);
         //Benchmark end
-        //Utils.writeToFile(MSDString, "MSDString_Sorting_Result.txt");
+
         for(int i = 0; i < MSDString.length; i++) {
             LinkedList<String> tmp = pinyinMapping.get(MSDString[i]);
             if(curr == tmp.size()) curr = 0;
             MSDString[i] = tmp.get(curr);
             curr++;
         }
-        System.out.println(Arrays.toString(MSDString));
+        Utils.writeToFile(MSDString, "MSDString_Sorting_Result.txt");
+//        System.out.println(Arrays.toString(MSDString));
 
 
         // LSD sort
@@ -89,14 +90,15 @@ public class SortBenchmark {
         //Benchmark start
         lsdSort.sort(LSDString);
         //Benchmark end
-        //Utils.writeToFile(LSDString, "LSDString_Sorting_Result.txt");
+
         for(int i = 0; i < LSDString.length; i++) {
             LinkedList<String> tmp = pinyinMapping.get(LSDString[i]);
             if(curr == tmp.size()) curr = 0;
             LSDString[i] = tmp.get(curr);
             curr++;
         }
-        System.out.println(Arrays.toString(LSDString));
+        Utils.writeToFile(LSDString, "LSDString_Sorting_Result.txt");
+//        System.out.println(Arrays.toString(LSDString));
 
         // Husky sort
         System.out.println("Husky Sort");
@@ -105,14 +107,15 @@ public class SortBenchmark {
         //Benchmark start
         huskySort.sort(HuskyString);
         //Benchmark end
-        //Utils.writeToFile(HuskyString, "HuskySort_Sorting_Result.txt");
+
         for(int i = 0; i < HuskyString.length; i++) {
             LinkedList<String> tmp = pinyinMapping.get(HuskyString[i]);
             if(curr == tmp.size()) curr = 0;
             HuskyString[i] = tmp.get(curr);
             curr++;
         }
-        System.out.println(Arrays.toString(HuskyString));
+        Utils.writeToFile(HuskyString, "HuskySort_Sorting_Result.txt");
+//        System.out.println(Arrays.toString(HuskyString));
 
         // TimSort
         System.out.println("TimSort");
@@ -124,14 +127,15 @@ public class SortBenchmark {
         //Benchmark start
         //timSort.sort(TimSortString, 0, TimSortString.length);
         //Benchmark end
-        //Utils.writeToFile(TimSortString, "TimSort_Sorting_Result.txt");
+
         for(int i = 0; i < TimSortString.length; i++) {
             LinkedList<String> tmp = pinyinMapping.get(TimSortString[i]);
             if(curr == tmp.size()) curr = 0;
             TimSortString[i] = tmp.get(curr);
             curr++;
         }
-        System.out.println(Arrays.toString(TimSortString));
+        Utils.writeToFile(TimSortString, "TimSort_Sorting_Result.txt");
+//        System.out.println(Arrays.toString(TimSortString));
 
         // Dual-Pivot Quick Sort
         System.out.println("Dual-Pivot Quicksort");
@@ -142,14 +146,15 @@ public class SortBenchmark {
             //Benchmark start
             quickSort.sort(DualPivotString, 0, DualPivotString.length, 0);
             //Benchmark end
-            //Utils.writeToFile(DualPivotString, "DualPivot_Sorting_Result.txt");
+
             for(int i = 0; i < DualPivotString.length; i++) {
                 LinkedList<String> tmp = pinyinMapping.get(DualPivotString[i]);
                 if(curr == tmp.size()) curr = 0;
                 DualPivotString[i] = tmp.get(curr);
                 curr++;
             }
-            System.out.println(Arrays.toString(DualPivotString));
+            Utils.writeToFile(DualPivotString, "DualPivot_Sorting_Result.txt");
+//            System.out.println(Arrays.toString(DualPivotString));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -163,4 +168,5 @@ public class SortBenchmark {
     private static Map<String, LinkedList<String>> pinyinMapping = new HashMap<>();
 
     private final static String pinyinFileName = "shuffledChineseToPinyinMapping.txt";
+    private final static String tonelessPinyinFileName = "shuffledChineseToTonelessPinyinMapping.txt";
 }
