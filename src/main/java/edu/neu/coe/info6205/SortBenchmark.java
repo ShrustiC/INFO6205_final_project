@@ -29,15 +29,17 @@ public class SortBenchmark {
      */
     public static void preProcess() {
         File pinyinFile = new File(pinyinFileName);
-        List<String> shuffledChinese = Utils.readFromFile("shuffledChineseTrimmed.txt");
+        List<String> shuffledChinese = Utils.readFromFile("shuffledChinese.txt");
         String[] tmp;
 
         if (pinyinFile.exists()){
             System.out.println("File exists, reading from file...");
             tmp = Utils.readFromFile(pinyinFile.toString()).stream().toArray(String[]::new);
         }else{
-            System.out.println("File is not exists, converting and writing to file...");
+            System.out.println("File does not exists, converting and writing to file...");
             tmp = Utils.wordToPinyin(shuffledChinese.stream().toArray(String[]::new));
+            int size = tmp.length;
+            System.out.println("************Pinyin array size : "+size);
             Utils.writeToFile(tmp, pinyinFile.toString());
         }
         Arrays.stream(tmp).forEach(str -> {
@@ -65,95 +67,110 @@ public class SortBenchmark {
         preProcess();
         int curr = 0;
 
-        // MSD sort
-        System.out.println("MSD Sort");
-        String[] MSDString = shuffledChinesePinyin.clone();
-        MSDStringSort msdSort = new MSDStringSort();
-        //Benchmark start
-        msdSort.sort(MSDString);
-        //Benchmark end
-        //Utils.writeToFile(MSDString, "MSDString_Sorting_Result.txt");
-        for(int i = 0; i < MSDString.length; i++) {
-            LinkedList<String> tmp = pinyinMapping.get(MSDString[i]);
-            if(curr == tmp.size()) curr = 0;
-            MSDString[i] = tmp.get(curr);
-            curr++;
-        }
-        System.out.println(Arrays.toString(MSDString));
+        //for(int N =250000 ; N < 8000000 ; N = 2*N) {
 
-
-        // LSD sort
-        System.out.println("LSD Sort");
-        String[] LSDString = shuffledChinesePinyin.clone();
-        LSDStringSort lsdSort = new LSDStringSort();
-        //Benchmark start
-        lsdSort.sort(LSDString);
-        //Benchmark end
-        //Utils.writeToFile(LSDString, "LSDString_Sorting_Result.txt");
-        for(int i = 0; i < LSDString.length; i++) {
-            LinkedList<String> tmp = pinyinMapping.get(LSDString[i]);
-            if(curr == tmp.size()) curr = 0;
-            LSDString[i] = tmp.get(curr);
-            curr++;
-        }
-        System.out.println(Arrays.toString(LSDString));
-
-        // Husky sort
-        System.out.println("Husky Sort");
-        String[] HuskyString = shuffledChinesePinyin.clone();
-        PureHuskySort huskySort = new PureHuskySort(HuskyCoderFactory.unicodeCoder, false, false);
-        //Benchmark start
-        huskySort.sort(HuskyString);
-        //Benchmark end
-        //Utils.writeToFile(HuskyString, "HuskySort_Sorting_Result.txt");
-        for(int i = 0; i < HuskyString.length; i++) {
-            LinkedList<String> tmp = pinyinMapping.get(HuskyString[i]);
-            if(curr == tmp.size()) curr = 0;
-            HuskyString[i] = tmp.get(curr);
-            curr++;
-        }
-        System.out.println(Arrays.toString(HuskyString));
-
-        // TimSort
-        System.out.println("TimSort");
-        String[] TimSortString = shuffledChinesePinyin.clone();
-        helper = new BaseHelper<>("Sorting", TimSortString.length, config);
-        TimSort<String> timSort = new TimSort<>(helper);
-        benchmark = new Benchmark_Timer<>("TimSort", b -> timSort.sort(b,0, TimSortString.length));
-        benchmark.run(TimSortString, 5);
-        //Benchmark start
-        //timSort.sort(TimSortString, 0, TimSortString.length);
-        //Benchmark end
-        //Utils.writeToFile(TimSortString, "TimSort_Sorting_Result.txt");
-        for(int i = 0; i < TimSortString.length; i++) {
-            LinkedList<String> tmp = pinyinMapping.get(TimSortString[i]);
-            if(curr == tmp.size()) curr = 0;
-            TimSortString[i] = tmp.get(curr);
-            curr++;
-        }
-        System.out.println(Arrays.toString(TimSortString));
-
-        // Dual-Pivot Quick Sort
-        System.out.println("Dual-Pivot Quicksort");
-        try {
-            String[] DualPivotString = shuffledChinesePinyin.clone();
-            Ini ini = new Ini();
-            QuickSort_DualPivot<String> quickSort = new QuickSort_DualPivot<String>(DualPivotString.length, new Config(ini));
+         //   System.out.println("**************Sort results for "+N+" elements:");
+            // MSD sort
+            System.out.println("MSD Sort");
+            String[] MSDString = shuffledChinesePinyin.clone();
+            MSDStringSort msdSort = new MSDStringSort();
+            benchmark = new Benchmark_Timer("MSDSort", b -> msdSort.sort(MSDString));
             //Benchmark start
-            quickSort.sort(DualPivotString, 0, DualPivotString.length, 0);
+            double MSDSortRunTime = benchmark.run(MSDString, 1);
             //Benchmark end
-            //Utils.writeToFile(DualPivotString, "DualPivot_Sorting_Result.txt");
-            for(int i = 0; i < DualPivotString.length; i++) {
-                LinkedList<String> tmp = pinyinMapping.get(DualPivotString[i]);
-                if(curr == tmp.size()) curr = 0;
-                DualPivotString[i] = tmp.get(curr);
+
+            Utils.writeToFile(MSDString, "MSDString_Sorting_Result.txt");
+            for (int i = 0; i < MSDString.length; i++) {
+                LinkedList<String> tmp = pinyinMapping.get(MSDString[i]);
+                if (curr == tmp.size()) curr = 0;
+                MSDString[i] = tmp.get(curr);
                 curr++;
             }
-            System.out.println(Arrays.toString(DualPivotString));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+            System.out.println("MSDSortRunTime: " + MSDSortRunTime);
+            System.out.println(Arrays.toString(MSDString));
 
+
+            // LSD sort
+            System.out.println("LSD Sort");
+            String[] LSDString = shuffledChinesePinyin.clone();
+            LSDStringSort lsdSort = new LSDStringSort();
+            benchmark = new Benchmark_Timer("LSDSort", b -> msdSort.sort(LSDString));
+             //Benchmark start
+            double LSDSortRunTime = benchmark.run(LSDString, 1);
+            //Benchmark end
+
+            Utils.writeToFile(LSDString, "LSDString_Sorting_Result.txt");
+            for (int i = 0; i < LSDString.length; i++) {
+                LinkedList<String> tmp = pinyinMapping.get(LSDString[i]);
+                if (curr == tmp.size()) curr = 0;
+                LSDString[i] = tmp.get(curr);
+                curr++;
+            }
+            System.out.println("LSDSortRunTime: " + LSDSortRunTime);
+            System.out.println(Arrays.toString(LSDString));
+
+            // Husky sort
+            System.out.println("Husky Sort");
+            String[] HuskyString = shuffledChinesePinyin.clone();
+            PureHuskySort huskySort = new PureHuskySort(HuskyCoderFactory.unicodeCoder, false, false);
+            benchmark = new Benchmark_Timer("Husky Sort", b -> huskySort.sort(HuskyString));
+            //Benchmark start
+            double HuskySortRunTime = benchmark.run(HuskyString, 1);
+            //Benchmark end
+
+            Utils.writeToFile(HuskyString, "HuskySort_Sorting_Result.txt");
+            for (int i = 0; i < HuskyString.length; i++) {
+                LinkedList<String> tmp = pinyinMapping.get(HuskyString[i]);
+                if (curr == tmp.size()) curr = 0;
+                HuskyString[i] = tmp.get(curr);
+                curr++;
+            }
+            System.out.println("HuskySortRunTime: " + HuskySortRunTime);
+            System.out.println(Arrays.toString(HuskyString));
+
+            // TimSort
+            System.out.println("TimSort");
+            String[] TimSortString = shuffledChinesePinyin.clone();
+            helper = new BaseHelper<>("Sorting", TimSortString.length, new Config(ini));
+            TimSort<String> timSort = new TimSort<>(helper);
+            benchmark = new Benchmark_Timer<>("TimSort", b -> timSort.sort(b, 0, TimSortString.length));
+             //Benchmark start
+            double TimSortRunTime = benchmark.run(TimSortString, 1);
+            //Benchmark end
+            Utils.writeToFile(TimSortString, "TimSort_Sorting_Result.txt");
+            for (int i = 0; i < TimSortString.length; i++) {
+                LinkedList<String> tmp = pinyinMapping.get(TimSortString[i]);
+                if (curr == tmp.size()) curr = 0;
+                TimSortString[i] = tmp.get(curr);
+                curr++;
+            }
+            System.out.println("TimSortRunTime: " + TimSortRunTime);
+            System.out.println(Arrays.toString(TimSortString));
+
+            // Dual-Pivot Quick Sort
+            System.out.println("Dual-Pivot Quicksort");
+            try {
+                String[] DualPivotString = shuffledChinesePinyin.clone();
+                helper = new BaseHelper<>("Dual-Pivot quicksort", DualPivotString.length, new Config(ini));
+
+                QuickSort_DualPivot<String> quickSort = new QuickSort_DualPivot<>(helper);
+                benchmark = new Benchmark_Timer<>("Dual-Pivot quicksort", b -> quickSort.sort(DualPivotString, 0, DualPivotString.length, 0));
+                //Benchmark start
+                double DPQuickSortRunTime = benchmark.run(DualPivotString, 1);
+                //Benchmark end
+                Utils.writeToFile(DualPivotString, "DualPivot_Sorting_Result.txt");
+                for (int i = 0; i < DualPivotString.length; i++) {
+                    LinkedList<String> tmp = pinyinMapping.get(DualPivotString[i]);
+                    if (curr == tmp.size()) curr = 0;
+                    DualPivotString[i] = tmp.get(curr);
+                    curr++;
+                }
+                System.out.println("DPQuickSortRunTime: " + DPQuickSortRunTime);
+                System.out.println(Arrays.toString(DualPivotString));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+       // }
     }
     private static Ini ini = new Ini();
     private static Config config = new Config(ini);
