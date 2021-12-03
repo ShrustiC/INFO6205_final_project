@@ -3,6 +3,8 @@ package edu.neu.coe.info6205;
 
 import edu.neu.coe.info6205.sort.BaseHelper;
 import edu.neu.coe.info6205.sort.Helper;
+import edu.neu.coe.info6205.sort.counting.CustomMSDStringSortCE1;
+import edu.neu.coe.info6205.sort.counting.CustomMSDStringSortCE2;
 import edu.neu.coe.info6205.sort.counting.LSDStringSort;
 import edu.neu.coe.info6205.sort.counting.MSDStringSort;
 import edu.neu.coe.info6205.sort.huskySort.PureHuskySort;
@@ -29,7 +31,7 @@ public class SortBenchmark {
      */
     public static void preProcess() {
         File pinyinFile = new File(pinyinFileName);
-        List<String> shuffledChinese = Utils.readFromFile("shuffledChinese.txt");
+        List<String> shuffledChinese = Utils.readFromFile(shuffledChineseFilename + ".txt");
         String[] tmp;
 
         if (pinyinFile.exists()){
@@ -56,7 +58,7 @@ public class SortBenchmark {
             }
             pinyinMapping.put(pinyIn, val);
         });
-        pinyinMapping.forEach((key, value) -> System.out.println(key + ":" + value));
+//        pinyinMapping.forEach((key, value) -> System.out.println(key + ":" + value));
         shuffledChinesePinyin = Arrays.stream(tmp)
                 .map(str -> str.split("=")[1])
                 .toArray(String[]::new);
@@ -67,9 +69,9 @@ public class SortBenchmark {
         preProcess();
         int curr = 0;
 
-        //for(int N =250000 ; N < 8000000 ; N = 2*N) {
+        for(int N =250000 ; N < 8000000 ; N = 2*N) {
 
-         //   System.out.println("**************Sort results for "+N+" elements:");
+            System.out.println("**************Sort results for "+N+" elements:");
             // MSD sort
             System.out.println("MSD Sort");
             String[] MSDString = shuffledChinesePinyin.clone();
@@ -88,6 +90,43 @@ public class SortBenchmark {
             }
             System.out.println("MSDSortRunTime: " + MSDSortRunTime);
             System.out.println(Arrays.toString(MSDString));
+
+            System.out.println("Custom MSD Sort - CE1");
+            String[] customMSDStringCE1 = shuffledChinesePinyin.clone();
+            CustomMSDStringSortCE1 customMSDSortCE1 = new CustomMSDStringSortCE1();
+            benchmark = new Benchmark_Timer("Custom_MSDSort_CE1", b -> customMSDSortCE1.sort(customMSDStringCE1));
+            //Benchmark start
+            double customMSDSortCE1RunTime = benchmark.run(customMSDStringCE1, 1);
+            //Benchmark end
+
+            Utils.writeToFile(customMSDStringCE1, "customMSDStringCE1_Sorting_Result.txt");
+            for (int i = 0; i < customMSDStringCE1.length; i++) {
+                LinkedList<String> tmp = pinyinMapping.get(customMSDStringCE1[i]);
+                if (curr == tmp.size()) curr = 0;
+                customMSDStringCE1[i] = tmp.get(curr);
+                curr++;
+            }
+            System.out.println("customMSDSortCE1RunTime: " + customMSDSortCE1RunTime);
+            System.out.println(Arrays.toString(customMSDStringCE1));
+
+            System.out.println("Custom MSD Sort - CE2");
+            String[] customMSDStringCE2 = shuffledChinesePinyin.clone();
+            CustomMSDStringSortCE2 customMSDSortCE2 = new CustomMSDStringSortCE2();
+            benchmark = new Benchmark_Timer("Custom_MSDSort_CE2", b -> customMSDSortCE2.sort(customMSDStringCE2));
+            //Benchmark start
+            double customMSDSortCE2RunTime = benchmark.run(customMSDStringCE2, 1);
+            //Benchmark end
+
+            Utils.writeToFile(customMSDStringCE2, "customMSDStringCE2_Sorting_Result.txt");
+            for (int i = 0; i < customMSDStringCE2.length; i++) {
+                LinkedList<String> tmp = pinyinMapping.get(customMSDStringCE2[i]);
+                if (curr == tmp.size()) curr = 0;
+                customMSDStringCE2[i] = tmp.get(curr);
+                curr++;
+            }
+            System.out.println("customMSDSortCE2RunTime: " + customMSDSortCE2RunTime);
+            System.out.println(Arrays.toString(customMSDStringCE2));
+
 
 
             // LSD sort
@@ -147,7 +186,7 @@ public class SortBenchmark {
             System.out.println("TimSortRunTime: " + TimSortRunTime);
             System.out.println(Arrays.toString(TimSortString));
 
-            // Dual-Pivot Quick Sort
+//             Dual-Pivot Quick Sort
             System.out.println("Dual-Pivot Quicksort");
             try {
                 String[] DualPivotString = shuffledChinesePinyin.clone();
@@ -166,11 +205,11 @@ public class SortBenchmark {
                     curr++;
                 }
                 System.out.println("DPQuickSortRunTime: " + DPQuickSortRunTime);
-                System.out.println(Arrays.toString(DualPivotString));
+//                System.out.println(Arrays.toString(DualPivotString));
             } catch (Exception e) {
                 System.out.println(e);
             }
-       // }
+        }
     }
     private static Ini ini = new Ini();
     private static Config config = new Config(ini);
@@ -179,5 +218,6 @@ public class SortBenchmark {
     private static String[] shuffledChinesePinyin;
     private static Map<String, LinkedList<String>> pinyinMapping = new HashMap<>();
 
-    private final static String pinyinFileName = "shuffledChineseToPinyinMapping.txt";
+    private final static String shuffledChineseFilename = "shuffledChinese";
+    private final static String pinyinFileName = shuffledChineseFilename + "ToPinyinMapping.txt";
 }
