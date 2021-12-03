@@ -4,7 +4,7 @@ import edu.neu.coe.info6205.sort.Helper;
 import edu.neu.coe.info6205.sort.SortWithHelper;
 
 public class LSDStringSort {
-    private final int ASCII_RANGE = 512;
+    private final int ASCII_RANGE = 256;
     /**
      * findMaxLength method returns maximum length of all available strings in an array
      *
