@@ -1,6 +1,7 @@
 
 package edu.neu.coe.info6205;
 
+import com.ibm.icu.util.ULocale;
 import edu.neu.coe.info6205.sort.BaseHelper;
 import edu.neu.coe.info6205.sort.Helper;
 import edu.neu.coe.info6205.sort.counting.LSDStringSort;
@@ -136,6 +137,26 @@ public class SortBenchmark {
         }
         Utils.writeToFile(TimSortString, "TimSort_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(TimSortString));
+
+        // TimSort with ICU4J Collator
+        System.out.println("TimSort with ICU4J Collator");
+        String[] TimSortICU4JString = shuffledChinesePinyin.clone();
+        helper = new BaseHelper<>("Timesort with ICU4J", TimSortICU4JString.length, config);
+        com.ibm.icu.text.Collator icu4jCmp = com.ibm.icu.text.Collator.getInstance(ULocale.SIMPLIFIED_CHINESE);
+        benchmark = new Benchmark_Timer<>("TimSort with ICU4J", b -> Arrays.sort(b,0, TimSortICU4JString.length, icu4jCmp));
+        benchmark.run(TimSortICU4JString, 5);
+        //Benchmark start
+        //timSort.sort(TimSortString, 0, TimSortString.length);
+        //Benchmark end
+
+        for(int i = 0; i < TimSortICU4JString.length; i++) {
+            LinkedList<String> tmp = pinyinMapping.get(TimSortICU4JString[i]);
+            if(curr == tmp.size()) curr = 0;
+            TimSortICU4JString[i] = tmp.get(curr);
+            curr++;
+        }
+        Utils.writeToFile(TimSortICU4JString, "TimSort_with_ICU4J_Sorting_Result.txt");
+//        System.out.println(Arrays.toString(TimSortICU4JString));
 
         // Dual-Pivot Quick Sort
         System.out.println("Dual-Pivot Quicksort");

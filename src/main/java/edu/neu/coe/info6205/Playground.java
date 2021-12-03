@@ -3,6 +3,8 @@ package edu.neu.coe.info6205;
 import java.text.Collator;
 import java.util.Arrays;
 import java.util.Locale;
+
+import com.ibm.icu.util.ULocale;
 import edu.neu.coe.info6205.sort.huskySort.PureHuskySort;
 import edu.neu.coe.info6205.sort.huskySort.utils.HuskyCoderFactory;
 import edu.neu.coe.info6205.sort.linearithmic.QuickSort_DualPivot;
@@ -73,6 +75,17 @@ public class Playground {
         timSort.sort(TimSortString, 0, TimSortString.length);
         System.out.println("TimSort String sort result: ");
         for(String i: TimSortString){
+            System.out.print(i + " ");
+        }
+        System.out.println("");
+
+        // TimSort with ICU4J Collator
+        String[] TimSortICU4JString = originalStringPinyin.clone();
+        helper = new BaseHelper<>("TimsortICU4J", TimSortICU4JString.length, config);
+        com.ibm.icu.text.Collator icu4jCmp = com.ibm.icu.text.Collator.getInstance(ULocale.SIMPLIFIED_CHINESE);
+        Arrays.sort(TimSortICU4JString, 0, TimSortICU4JString.length, icu4jCmp);
+        System.out.println("TimSort String sort with ICU4J result: ");
+        for(String i: TimSortICU4JString){
             System.out.print(i + " ");
         }
         System.out.println("");
