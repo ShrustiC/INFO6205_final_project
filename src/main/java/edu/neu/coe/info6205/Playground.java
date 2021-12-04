@@ -129,7 +129,7 @@ public class Playground {
         System.out.println("Words: " + Arrays.toString(wordsArray));
         System.out.println("CN Unicode: " + Utils.cnToUnicode(wordsArray));
 
-//        List<String> list = edu.neu.coe.info6205.util.Utils.readFromFile("shuffledChinese.txt");
+//        List<String> list = edu.neu.coe.info6205.util.Utils.readFromFile("shuffledChinese1M.txt");
 //        String[] array = list.stream().toArray(String[]::new);
 //        huskySort.sort(array);
 //        Arrays.asList(array).stream().forEach(s -> System.out.println(s));
