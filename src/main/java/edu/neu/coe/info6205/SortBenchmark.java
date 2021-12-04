@@ -205,11 +205,16 @@ public class SortBenchmark {
             System.out.println("Dual-Pivot Quicksort");
             try {
                 String[] dpQuickSortString = shuffledChinesePinyin.clone();
-//            DualPivotQuickSortBenchmark(dpQuickSortString);
+                DualPivotQuickSortBenchmark(dpQuickSortString);
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
+    }
+
+    // for unit test
+    public static String[] getShuffledChinesePinyin() {
+        return shuffledChinesePinyin;
     }
 
     private static Ini ini = new Ini();
@@ -219,6 +224,7 @@ public class SortBenchmark {
     private static String[] shuffledChinesePinyin;
     private static Map<String, LinkedList<String>> pinyinMapping = new HashMap<>();
     private static String[] sizes = new String[]{"250k", "500k", "1M", "2M", "4M"};
+//    private static String[] sizes = new String[]{"Trimmed"};
 
     private final static String SHUFFLED_CHINESE_FILENAME = "shuffledChinese";
     private final static String SHUFFLED_CHINESE_FILENAME_TRIMMED = SHUFFLED_CHINESE_FILENAME + "Trimmed.txt";
