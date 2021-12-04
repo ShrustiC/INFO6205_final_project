@@ -81,7 +81,8 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("MSDSortRunTime: " + MSDSortRunTime);
-//        Utils.writeToFile(pinyinList, "MSDString_Sorting_Result.txt");
+        if (writeToFile)
+            Utils.writeToFile(pinyinList, String.valueOf(pinyinList.length) + "_MSDString_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -92,7 +93,8 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("customMSDSortCE1RunTime: " + customMSDSortCE1RunTime);
-//        Utils.writeToFile(pinyinList, "MSDCE1String_Sorting_Result.txt");
+        if (writeToFile)
+            Utils.writeToFile(pinyinList, String.valueOf(pinyinList.length) + "_MSDCE1String_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -103,7 +105,8 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("customMSDSortCE2RunTime: " + customMSDSortCE2RunTime);
-//        Utils.writeToFile(pinyinList, "MSDCE2String_Sorting_Result.txt");
+        if (writeToFile)
+            Utils.writeToFile(pinyinList, String.valueOf(pinyinList.length) + "_MSDCE2String_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -114,7 +117,8 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("LSDSortRunTime: " + LSDSortRunTime);
-//        Utils.writeToFile(pinyinList, "LSDString_Sorting_Result.txt");
+        if (writeToFile)
+            Utils.writeToFile(pinyinList, String.valueOf(pinyinList.length) + "_LSDString_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -125,7 +129,8 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("HuskySortRunTime: " + HuskySortRunTime);
-//        Utils.writeToFile(pinyinList, "HuskySort_Sorting_Result.txt");
+        if (writeToFile)
+            Utils.writeToFile(pinyinList, String.valueOf(pinyinList.length) + "_HuskySort_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -137,7 +142,8 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("timsortICU4JRunTIme: " + timsortICU4JRunTIme);
-//        Utils.writeToFile(pinyinList, "TimsortICU4J_Sorting_Result.txt");
+        if (writeToFile)
+            Utils.writeToFile(pinyinList, String.valueOf(pinyinList.length) + "_TimsortICU4J_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -149,7 +155,8 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("timsortRunTime: " + timsortRunTime);
-//        Utils.writeToFile(pinyinList, "Timsort_Sorting_Result.txt");
+        if (writeToFile)
+            Utils.writeToFile(pinyinList, String.valueOf(pinyinList.length) + "_Timsort_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -161,7 +168,8 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("dpQuickSortRunTime: " + dpQuickSortRunTime);
-//        Utils.writeToFile(pinyinList, "dpQuckSort_Sorting_Result.txt");
+        if (writeToFile)
+            Utils.writeToFile(pinyinList, String.valueOf(pinyinList.length) + "_dpQuckSort_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -231,6 +239,7 @@ public class SortBenchmark {
     private static String[] shuffledChinesePinyin;
     private static Map<String, LinkedList<String>> pinyinMapping = new HashMap<>();
     private static String[] sizes = new String[]{"250k", "500k", "1M", "2M", "4M"};
+    private static boolean writeToFile = false;
 //    private static String[] sizes = new String[]{"Trimmed"};
 
     private final static String SHUFFLED_CHINESE_FILENAME = "shuffledChinese";
