@@ -34,6 +34,8 @@ public class SortBenchmark {
         List<String> shuffledChinese = Utils.readFromFile(shuffledChineseFilename + ".txt");
         String[] tmp;
 
+        Collections.shuffle(shuffledChinese);
+
         if (pinyinFile.exists()) {
             System.out.println("File exists, reading from file...");
             tmp = Utils.readFromFile(pinyinFile.toString()).stream().toArray(String[]::new);
@@ -216,6 +218,6 @@ public class SortBenchmark {
     private static String[] shuffledChinesePinyin;
     private static Map<String, LinkedList<String>> pinyinMapping = new HashMap<>();
 
-    private final static String shuffledChineseFilename = "shuffledChinese1M"; // shuffledChinese250k, shuffledChinese500k, shuffledChinese2M, shuffledChinese4M
+    private final static String shuffledChineseFilename = "shuffledChinese250k"; // shuffledChinese250k, shuffledChinese500k, shuffledChinese2M, shuffledChinese4M
     private final static String pinyinFileName = shuffledChineseFilename + "ToPinyinMapping.txt";
 }
