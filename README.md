@@ -30,6 +30,10 @@ There are six files with shuffled Chinese names as the input:
 
 The target file can changed by modifying the variable "SHUFFLED_CHINESE_FILENAME"
 
+We recommend to commenting out the Dual-Pivot Quicksort because it will take a long time to complete.
+
+The writeToFile flag can be turned on to see the results.
+
 # Troubleshooting
 
 * Dual-Pivot Quicksort Stackoverflow issue
