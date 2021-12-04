@@ -92,6 +92,7 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("customMSDSortCE1RunTime: " + customMSDSortCE1RunTime);
+//        Utils.writeToFile(pinyinList, "MSDCE1String_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -102,6 +103,7 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("customMSDSortCE2RunTime: " + customMSDSortCE2RunTime);
+//        Utils.writeToFile(pinyinList, "MSDCE2String_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -112,6 +114,7 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("LSDSortRunTime: " + LSDSortRunTime);
+//        Utils.writeToFile(pinyinList, "LSDString_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -122,6 +125,7 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("HuskySortRunTime: " + HuskySortRunTime);
+//        Utils.writeToFile(pinyinList, "HuskySort_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -133,6 +137,7 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("timsortICU4JRunTIme: " + timsortICU4JRunTIme);
+//        Utils.writeToFile(pinyinList, "TimsortICU4J_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -144,6 +149,7 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("timsortRunTime: " + timsortRunTime);
+//        Utils.writeToFile(pinyinList, "Timsort_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
@@ -155,6 +161,7 @@ public class SortBenchmark {
 
         postProcess(pinyinList);
         System.out.println("dpQuickSortRunTime: " + dpQuickSortRunTime);
+//        Utils.writeToFile(pinyinList, "dpQuckSort_Sorting_Result.txt");
 //        System.out.println(Arrays.toString(pinyinList));
     }
 
