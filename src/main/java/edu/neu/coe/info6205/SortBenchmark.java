@@ -37,7 +37,7 @@ public class SortBenchmark {
         if (pinyinFile.exists()){
             System.out.println("File exists, reading from file...");
             tmp = Utils.readFromFile(pinyinFile.toString()).stream().toArray(String[]::new);
-        }else{
+        } else {
             System.out.println("File does not exists, converting and writing to file...");
             List<String> shuffledChinese = Utils.readFromFile(SHUFFLED_CHINESE_FILENAME_TRIMMED);
             tmp = Utils.wordToPinyin(shuffledChinese.stream().toArray(String[]::new));
@@ -47,7 +47,7 @@ public class SortBenchmark {
             String ch = str.split("=")[0];
             String pinyIn = str.split("=")[1];
             LinkedList<String> val;
-            if(pinyinMapping.containsKey(pinyIn)) {
+            if (pinyinMapping.containsKey(pinyIn)) {
                 val = pinyinMapping.get(pinyIn);
                 val.add(ch);
                 Collections.sort(val);
@@ -206,8 +206,8 @@ public class SortBenchmark {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
 
+    }
 
     private static Ini ini = new Ini();
     private static Config config = new Config(ini);
