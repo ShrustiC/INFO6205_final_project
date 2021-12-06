@@ -1,4 +1,4 @@
-# INFO6250_final_project
+# INFO6205_final_project
 Final project
 
 # Getting Started
